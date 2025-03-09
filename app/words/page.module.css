@@ -1,0 +1,64 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.wordsArea {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardTitle {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.eitango {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #2c3e50;
+}
+
+.cardBody {
+  padding: 1.5rem;
+}
+
+.mean {
+  margin: 0 0 1rem 0;
+  font-size: 1.4rem;
+  color: #666;
+}
+
+.exampleSentence {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #888;
+  font-style: italic;
+}

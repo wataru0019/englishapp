@@ -2,12 +2,37 @@
 
 import styles from "./page.module.css";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import Button from "./components/Button";
 
 export default function Home() {
+  const [healthStatus, setHealthStatus] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const checkHealth = async () => {
+      try {
+        const response = await fetch('http://0.0.0.0:8000/api/v1/words/');
+        const data = await response.json();
+        setHealthStatus(data);
+      } catch (err) {
+        setError('Failed to fetch health status');
+        console.error(err);
+      }
+    };
+
+    checkHealth();
+  }, []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        {error && <p className={styles.error}>{error}</p>}
+        {healthStatus && (
+          <div className={styles.healthStatus}>
+            <p>API Status: {JSON.stringify(healthStatus)}</p>
+          </div>
+        )}
         <h1>Master English with Confidence</h1>
         <p className={styles.subtitle}>
           Interactive lessons, real-world practice, and personalized feedback

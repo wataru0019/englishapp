@@ -140,6 +140,21 @@ a.secondary {
   color: var(--gray-rgb);
 }
 
+.healthStatus {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--gray-alpha-100);
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {
