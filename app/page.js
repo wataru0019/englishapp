@@ -3,7 +3,6 @@
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import Button from "./components/Button";
 
 export default function Home() {
   const [healthStatus, setHealthStatus] = useState(null);

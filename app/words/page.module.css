@@ -21,6 +21,17 @@
   padding: 1rem;
 }
 
+/* リンクのスタイルを追加 */
+.wordsArea a {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.wordsArea a:visited {
+  color: inherit;
+}
+
 .card {
   background: white;
   border-radius: 12px;

@@ -1,4 +1,6 @@
 import styles from "./page.module.css";
+import { cardlist } from "./data";
+import Link from 'next/link';
 
 export default function Words() {
     return (
@@ -7,15 +9,18 @@ export default function Words() {
                 <h1>英単語帳</h1>
             </div>
             <div className={styles.wordsArea}>
-                <div className={styles.card}>
-                    <div className={styles.cardTitle}>
-                        <h3 className={styles.eitango}>Apple</h3>
-                    </div>
-                    <div className={styles.cardBody}>
-                        <h3 className={styles.mean}>りんご</h3>
-                        <h3 className={styles.exampleSentence}>I eat apple.</h3>
-                    </div>
-                </div>
+                {cardlist.map((card) => (
+                    <Link href={`/words/${card.card_number}/cards`} key={card.card_number}>
+                        <div className={styles.card}>
+                            <div className={styles.cardTitle}>
+                                <h3 className={styles.eitango}>{card.card_title}</h3>
+                            </div>
+                            <div className={styles.cardBody}>
+                                <p className={styles.cardDescription}>{card.card_description}</p>
+                            </div>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
     );
