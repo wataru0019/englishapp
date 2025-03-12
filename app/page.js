@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        const response = await fetch('http://0.0.0.0:8000/api/v1/words/');
+        const response = await fetch('https://englishapp-1088649073221.asia-northeast1.run.app/api/v1/words/');
         const data = await response.json();
         setHealthStatus(data);
       } catch (err) {

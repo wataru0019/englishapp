@@ -73,3 +73,19 @@
   color: #888;
   font-style: italic;
 }
+
+.backLink {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #f1f1f1;
+  color: #333;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.backLink:hover {
+  background-color: #e0e0e0;
+}
