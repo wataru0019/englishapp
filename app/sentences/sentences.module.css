@@ -1,0 +1,112 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.title {
+  color: #1a1a1a;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.passage {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.passage h2 {
+  color: #2d3748;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.passage p {
+  color: #4a5568;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.question {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.question p {
+  color: #2d3748;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.optionsList {
+  list-style: none;
+  padding: 0;
+}
+
+.optionItem {
+  margin: 10px 0;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.radioLabel:hover {
+  background-color: #f7fafc;
+}
+
+.radioInput {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 30px auto;
+  padding: 15px 30px;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #3182ce;
+}
+
+.feedback {
+  text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.correctAnswer {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  padding: 8px;
+  background-color: #fff5f5;
+  border-radius: 6px;
+}

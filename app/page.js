@@ -66,6 +66,7 @@ export default function Home() {
         <Link href="/terms">Terms</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/contact">Contact</Link>
+        <Link href="/sentences">Sentences</Link>
       </footer>
     </div>
   );
