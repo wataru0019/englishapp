@@ -1,0 +1,108 @@
+/* Figmaデザインに基づくスタイル */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+}
+
+.title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.2em;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
+}
+
+.divider {
+  border-top: 1px solid #000000;
+  margin: 8px 0 16px 0;
+}
+
+.card {
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wordTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
+  color: #1E1E1E;
+}
+
+.example {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4em;
+  color: #757575;
+}
+
+.meaning {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4em;
+  color: #1E1E1E;
+  background-color: #F5F5F5;
+  padding: 12px;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+.button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1em;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkButton {
+  background-color: #E3E3E3;
+  border: 1px solid #767676;
+  color: #1E1E1E;
+  width: 100%;
+}
+
+.backButton {
+  background-color: #303030;
+  color: #FFFFFF;
+  width: 112px;
+  margin: 32px auto 0;
+}

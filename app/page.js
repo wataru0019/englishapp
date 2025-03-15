@@ -32,7 +32,7 @@ export default function Home() {
             <p>API Status: {JSON.stringify(healthStatus)}</p>
           </div>
         )}
-        <h1>Master English with Confidence</h1>
+        <h1>自信を持って英語をマスターしよう</h1>
         <p className={styles.subtitle}>
           Interactive lessons, real-world practice, and personalized feedback
         </p>
