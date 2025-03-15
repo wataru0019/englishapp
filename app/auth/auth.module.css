@@ -1,0 +1,140 @@
+.authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.authCard {
+  background-color: white;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.authTitle {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.authSubtitle {
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.authButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.loginButton, .signupButton {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.loginButton {
+  background-color: #2563eb;
+  color: white;
+}
+
+.loginButton:hover {
+  background-color: #1d4ed8;
+}
+
+.signupButton {
+  background-color: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.signupButton:hover {
+  background-color: #f0f7ff;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.formInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.formInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #1d4ed8;
+}
+
+.submitButton:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.successMessage {
+  color: #059669;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.authLink {
+  display: block;
+  margin-top: 24px;
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.authLink:hover {
+  text-decoration: underline;
+}
