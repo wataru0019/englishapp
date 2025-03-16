@@ -1,0 +1,223 @@
+name: AI Chat Interface
+version: 1.0
+description: Interactive chat interface for English learning application
+
+layout:
+  type: flex
+  direction: column
+  height: 100vh
+  width: 100%
+
+components:
+  header:
+    type: container
+    style:
+      padding: 16px
+      backgroundColor: "#f0f4f8"
+      borderBottom: "1px solid #e1e4e8"
+    children:
+      - type: text
+        text: "English Learning Assistant"
+        style:
+          fontSize: 20px
+          fontWeight: bold
+          color: "#2c3e50"
+      - type: text
+        text: "Practice your English conversation skills with AI"
+        style:
+          fontSize: 14px
+          color: "#7f8c8d"
+          marginTop: 4px
+
+  chatContainer:
+    type: container
+    style:
+      flex: 1
+      overflow: auto
+      padding: 16px
+      backgroundColor: "#ffffff"
+    children:
+      - type: dynamic
+        source: messages
+        template:
+          type: container
+          style:
+            marginBottom: 16px
+            display: flex
+            flexDirection: column
+            alignItems: "{{ message.isUser ? 'flex-end' : 'flex-start' }}"
+          children:
+            - type: container
+              style:
+                maxWidth: 80%
+                padding: 12px 16px
+                borderRadius: "{{ message.isUser ? '12px 12px 0 12px' : '12px 12px 12px 0' }}"
+                backgroundColor: "{{ message.isUser ? '#2563eb' : '#f3f4f6' }}"
+                color: "{{ message.isUser ? '#ffffff' : '#1f2937' }}"
+              children:
+                - type: text
+                  text: "{{ message.content }}"
+                  style:
+                    fontSize: 16px
+                    lineHeight: 1.5
+            - type: text
+              text: "{{ message.timestamp }}"
+              style:
+                fontSize: 12px
+                color: "#9ca3af"
+                marginTop: 4px
+                alignSelf: "{{ message.isUser ? 'flex-end' : 'flex-start' }}"
+
+  inputContainer:
+    type: container
+    style:
+      padding: 16px
+      borderTop: "1px solid #e1e4e8"
+      backgroundColor: "#f0f4f8"
+      display: flex
+    children:
+      - type: input
+        placeholder: "Type your message here..."
+        style:
+          flex: 1
+          padding: 12px 16px
+          borderRadius: 24px
+          border: "1px solid #d1d5db"
+          fontSize: 16px
+          backgroundColor: "#ffffff"
+        bindings:
+          value: userInput
+          onChange: setUserInput
+      - type: button
+        text: "Send"
+        style:
+          marginLeft: 8px
+          padding: "0 20px"
+          height: 48px
+          borderRadius: 24px
+          backgroundColor: "#2563eb"
+          color: "#ffffff"
+          fontWeight: bold
+          border: "none"
+          cursor: pointer
+        bindings:
+          onClick: sendMessage
+      - type: button
+        icon: "mic"
+        style:
+          marginLeft: 8px
+          width: 48px
+          height: 48px
+          borderRadius: 24px
+          backgroundColor: "#f3f4f6"
+          color: "#4b5563"
+          border: "1px solid #d1d5db"
+          cursor: pointer
+        bindings:
+          onClick: startVoiceInput
+
+state:
+  userInput: ""
+  messages: []
+  isProcessing: false
+  voiceRecording: false
+
+actions:
+  sendMessage:
+    type: function
+    code: |
+      if (!state.userInput.trim()) return;
+      
+      // Add user message to chat
+      const userMessage = {
+        id: Date.now().toString(),
+        content: state.userInput,
+        isUser: true,
+        timestamp: new Date().toLocaleTimeString()
+      };
+      
+      setState({
+        messages: [...state.messages, userMessage],
+        userInput: "",
+        isProcessing: true
+      });
+      
+      // Call AI service for response
+      api.post('/api/chat', {
+        message: userMessage.content
+      }).then(response => {
+        // Add AI response to chat
+        const aiMessage = {
+          id: (Date.now() + 1).toString(),
+          content: response.data.message,
+          isUser: false,
+          timestamp: new Date().toLocaleTimeString()
+        };
+        
+        setState({
+          messages: [...state.messages, aiMessage],
+          isProcessing: false
+        });
+      }).catch(error => {
+        console.error('Error getting AI response:', error);
+        setState({ isProcessing: false });
+      });
+
+  startVoiceInput:
+    type: function
+    code: |
+      if (!navigator.mediaDevices || !window.SpeechRecognition) {
+        alert("Voice input is not supported in your browser");
+        return;
+      }
+      
+      setState({ voiceRecording: true });
+      
+      const recognition = new window.SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setState({
+          userInput: transcript,
+          voiceRecording: false
+        });
+      };
+      
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setState({ voiceRecording: false });
+      };
+      
+      recognition.onend = () => {
+        setState({ voiceRecording: false });
+      };
+      
+      recognition.start();
+
+api:
+  baseUrl: "/api"
+  endpoints:
+    chat:
+      path: "/chat"
+      method: "POST"
+      body:
+        message: "string"
+      response:
+        message: "string"
+
+settings:
+  aiModel: "gpt-4"
+  responseDelay: 500
+  maxHistory: 50
+  language: "en-US"
+  theme: "light"
+  voiceEnabled: true
+  suggestedPrompts:
+    - "Introduce yourself"
+    - "Let's practice daily conversation"
+    - "Can you correct my grammar?"
+    - "Let's discuss a topic"
+    - "Help me prepare for an interview"
