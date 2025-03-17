@@ -2,7 +2,18 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { sendChatMessage, startChatSession } from '@/lib/api';
+import WordPanel from '../components/WordPanel';
+import { useWordContext } from '../context/WordContext';
 import styles from './chat.module.css';
+
+// チャットページ用のスタイルを適用するためのスタイル要素
+const chatPageStyle = {
+  marginTop: 0,
+  marginBottom: 0,
+  padding: 0,
+  maxWidth: '100%',
+  width: '100%'
+};
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -10,6 +21,15 @@ export default function ChatPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const messagesEndRef = useRef(null);
+  const { setSelectedText } = useWordContext();
+  
+  // テキストを選択したときの処理
+  const handleTextSelection = () => {
+    const selection = window.getSelection();
+    if (selection && selection.toString().trim() !== '') {
+      setSelectedText(selection.toString().trim());
+    }
+  };
   
   // Initialize chat session
   useEffect(() => {
@@ -78,10 +98,10 @@ export default function ChatPage() {
   };
   
   return (
-    <div className={styles.chatContainer}>
+    <div className={styles.pageContainer} style={chatPageStyle}>
+      <div className={styles.chatContainer}>
       <div className={styles.header}>
         <h1>English Learning Assistant</h1>
-        <p>Practice your English conversation skills with AI</p>
       </div>
       
       <div className={styles.messageList}>
@@ -89,21 +109,11 @@ export default function ChatPage() {
           <div className={styles.emptyState}>
             <p>Start a conversation to practice your English skills</p>
             <div className={styles.suggestedPrompts}>
-              <button onClick={() => setInput("Introduce yourself")}>
-                Introduce yourself
-              </button>
-              <button onClick={() => setInput("Let's practice daily conversation")}>
-                Daily conversation
-              </button>
-              <button onClick={() => setInput("Can you correct my grammar?")}>
-                Grammar help
-              </button>
-              <button onClick={() => setInput("Let's discuss a topic")}>
-                Discuss a topic
-              </button>
-              <button onClick={() => setInput("Help me prepare for an interview")}>
-                Interview prep
-              </button>
+              <button onClick={() => setInput("Introduce yourself")}>Introduce yourself</button>
+              <button onClick={() => setInput("Let's practice daily conversation")}>Daily conversation</button>
+              <button onClick={() => setInput("Can you correct my grammar?")}>Grammar help</button>
+              <button onClick={() => setInput("Let's discuss a topic")}>Discuss a topic</button>
+              <button onClick={() => setInput("Help me prepare for an interview")}>Interview prep</button>
             </div>
           </div>
         )}
@@ -113,7 +123,10 @@ export default function ChatPage() {
             key={message.id} 
             className={`${styles.messageWrapper} ${message.isUser ? styles.userMessage : styles.aiMessage}`}
           >
-            <div className={styles.messageContent}>
+            <div 
+              className={styles.messageContent} 
+              onMouseUp={handleTextSelection}
+            >
               <p>{message.content}</p>
             </div>
             <div className={styles.messageTimestamp}>
@@ -152,6 +165,8 @@ export default function ChatPage() {
           Send
         </button>
       </div>
+      </div>
+      <WordPanel />
     </div>
   );
 }
