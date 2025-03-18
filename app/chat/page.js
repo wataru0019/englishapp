@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { sendChatMessage, startChatSession } from '@/lib/api';
 import WordPanel from '../components/WordPanel';
 import { useWordContext } from '../context/WordContext';
 import styles from './chat.module.css';
+import SpeechButton, { useSpeechSynthesis } from '../components/SpeechSynthesis';
+import SelectableText from '../components/SelectableText';
 
 // チャットページ用のスタイルを適用するためのスタイル要素
 const chatPageStyle = {
@@ -16,20 +18,26 @@ const chatPageStyle = {
 };
 
 export default function ChatPage() {
+  // 音声合成関連の機能をインポート
+  const { speak, cancel, speaking, supported: speechSupported, englishVoices } = useSpeechSynthesis();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [sessionId, setSessionId] = useState(null);
+  const [autoSpeak, setAutoSpeak] = useState(true); // 自動読み上げ設定
   const messagesEndRef = useRef(null);
   const { setSelectedText } = useWordContext();
   
-  // テキストを選択したときの処理
-  const handleTextSelection = () => {
-    const selection = window.getSelection();
-    if (selection && selection.toString().trim() !== '') {
-      setSelectedText(selection.toString().trim());
-    }
-  };
+  // テキストを選択したときの処理 - デスクトップとモバイル両方に対応
+  const handleTextSelection = useCallback(() => {
+    // 少し遅延させて選択が完了するのを待つ
+    setTimeout(() => {
+      const selection = window.getSelection();
+      if (selection && selection.toString().trim() !== '') {
+        setSelectedText(selection.toString().trim());
+      }
+    }, 100);
+  }, [setSelectedText]);
   
   // Initialize chat session
   useEffect(() => {
@@ -83,6 +91,26 @@ export default function ChatPage() {
       };
       
       setMessages(prev => [...prev, aiMessage]);
+      
+      // AIからの応答を自動的に読み上げる（オプションとして設定可能）
+      if (speechSupported && autoSpeak) {
+        // 音声設定オプション
+        const speechOptions = {
+          rate: 1, // 速度 (通常の速さ)
+          pitch: 1, // ピッチ (通常のピッチ)
+          volume: 1, // 音量 (最大)
+          lang: 'en-US', // 英語音声
+          preferredVoice: 'en-US' // 英語（米国）音声を優先
+        };
+        
+        // 英語音声が利用可能なら、最初の英語音声を使用
+        if (englishVoices.length > 0) {
+          speechOptions.voiceName = englishVoices[0].name;
+        }
+        
+        // 音声読み上げ実行
+        speak(data.message, speechOptions);
+      }
     } catch (error) {
       console.error('Error getting AI response:', error);
     } finally {
@@ -102,6 +130,16 @@ export default function ChatPage() {
       <div className={styles.chatContainer}>
       <div className={styles.header}>
         <h1>English Learning Assistant</h1>
+        <div className={styles.settings}>
+          <label className={styles.autoSpeakToggle}>
+            <input
+              type="checkbox"
+              checked={autoSpeak}
+              onChange={(e) => setAutoSpeak(e.target.checked)}
+            />
+            <span className={styles.toggleText}>Auto-speak AI messages</span>
+          </label>
+        </div>
       </div>
       
       <div className={styles.messageList}>
@@ -123,12 +161,26 @@ export default function ChatPage() {
             key={message.id} 
             className={`${styles.messageWrapper} ${message.isUser ? styles.userMessage : styles.aiMessage}`}
           >
-            <div 
+            <SelectableText 
               className={styles.messageContent} 
-              onMouseUp={handleTextSelection}
-            >
+              onTextSelect={setSelectedText}
+              >
+            {!message.isUser && (
+              <div className={styles.messageControls}>
+                <SpeechButton 
+                  text={message.content} 
+                  iconOnly={true} 
+                  className={styles.speechButton}
+                  options={{
+                    rate: 1,
+                    lang: 'en-US',
+                    preferredVoice: 'en-US'
+                  }}
+                />
+              </div>
+            )}
               <p>{message.content}</p>
-            </div>
+            </SelectableText>
             <div className={styles.messageTimestamp}>
               {message.timestamp}
             </div>

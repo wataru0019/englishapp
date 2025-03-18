@@ -21,6 +21,9 @@
   background-color: #f0f4f8;
   border-bottom: 1px solid #e1e4e8;
   flex-shrink: 0; /* Prevent header from shrinking */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header h1 {
@@ -34,6 +37,27 @@
   font-size: 14px;
   color: #7f8c8d;
   margin: 4px 0 0 0;
+}
+
+.settings {
+  display: flex;
+  align-items: center;
+}
+
+.autoSpeakToggle {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.autoSpeakToggle input {
+  margin-right: 6px;
+}
+
+.toggleText {
+  user-select: none;
 }
 
 .messageList {
@@ -64,6 +88,10 @@
   padding: 12px 16px;
   border-radius: 12px;
   overflow-wrap: break-word;
+  -webkit-user-select: text; /* Safari */
+  user-select: text; /* 標準 */
+  cursor: text;
+  touch-action: manipulation; /* タッチ操作の最適化 */
 }
 
 .userMessage .messageContent {
@@ -76,11 +104,14 @@
   background-color: #f3f4f6;
   color: #1f2937;
   border-radius: 12px 12px 12px 0;
+  position: relative;
 }
 
 .messageContent p {
   margin: 0;
   line-height: 1.5;
+  -webkit-user-select: text; /* Safari */
+  user-select: text; /* 標準 */
 }
 
 .messageTimestamp {
@@ -179,6 +210,54 @@
   } 40% { 
     transform: scale(1.0);
   }
+}
+
+/* 音声再生ボタンのスタイル */
+.messageControls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .messageControls {
+    top: 6px;
+    right: 6px;
+  }
+}
+
+.speechButton {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  color: #1f2937;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+@media (max-width: 768px) {
+  .speechButton {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+.speechButton:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.1);
+}
+
+.speechButton:active {
+  transform: scale(0.95);
 }
 
 .emptyState {
