@@ -1,0 +1,83 @@
+.layoutContainer {
+  display: flex;
+  height: calc(100vh - 60px); /* Navbarの高さを引いた全画面高さ */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.threadListWrapper {
+  height: 100%;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.contentWrapper {
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+}
+
+.toggleButton {
+  position: fixed;
+  top: 70px;
+  left: 10px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.toggleButton:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.05);
+}
+
+.toggleButton:active {
+  transform: scale(0.95);
+}
+
+/* モバイル用スタイル */
+@media (max-width: 768px) {
+  .threadListWrapper {
+    position: fixed;
+    top: 60px; /* Navbarの高さ */
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .threadListHidden {
+    transform: translateX(-100%);
+  }
+
+  .threadListVisible {
+    transform: translateX(0);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* スレッドリストが表示されているときの背景オーバーレイ */
+  .threadListVisible::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+}
