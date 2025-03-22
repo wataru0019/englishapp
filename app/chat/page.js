@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { useRouter, useParams } from 'next/navigation';
 import { sendChatMessage, startChatSession } from '@/lib/api';
 import WordPanel from '../components/WordPanel';
@@ -247,7 +248,15 @@ export default function ChatPage() {
                     />
                   </div>
                 )}
-                <p>{message.content}</p>
+                {message.isUser ? (
+                  <p>{message.content}</p>
+                ) : (
+                  <div className={styles.markdownContent}>
+                    <ReactMarkdown>
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
+                )}
               </SelectableText>
               <div className={styles.messageTimestamp}>
                 {message.timestamp}

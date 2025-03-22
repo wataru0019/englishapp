@@ -107,6 +107,148 @@
   position: relative;
 }
 
+/* Markdown content styling */
+.markdownContent {
+  /* Base styles for all markdown content */
+  margin: 0;
+  line-height: 1.5;
+  font-family: inherit;
+  -webkit-user-select: text; /* Safari */
+  user-select: text; /* Standard */
+}
+
+/* Style for markdown headers */
+.markdownContent h1, 
+.markdownContent h2, 
+.markdownContent h3, 
+.markdownContent h4, 
+.markdownContent h5, 
+.markdownContent h6 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdownContent h1 {
+  font-size: 24px;
+}
+
+.markdownContent h2 {
+  font-size: 20px;
+}
+
+.markdownContent h3 {
+  font-size: 18px;
+}
+
+.markdownContent h4 {
+  font-size: 16px;
+}
+
+/* Bold text */
+.markdownContent strong {
+  font-weight: 600;
+}
+
+/* Italic text */
+.markdownContent em {
+  font-style: italic;
+}
+
+/* Links */
+.markdownContent a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.markdownContent a:hover {
+  text-decoration: none;
+}
+
+/* Lists */
+.markdownContent ul, 
+.markdownContent ol {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+.markdownContent li {
+  margin-bottom: 4px;
+}
+
+/* Blockquotes */
+.markdownContent blockquote {
+  border-left: 4px solid #d1d5db;
+  padding-left: 12px;
+  color: #4b5563;
+  margin: 8px 0;
+}
+
+/* Code blocks */
+.markdownContent code {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.markdownContent pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.markdownContent pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Tables */
+.markdownContent table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.markdownContent th,
+.markdownContent td {
+  border: 1px solid #d1d5db;
+  padding: 6px 12px;
+  text-align: left;
+}
+
+.markdownContent th {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+/* Horizontal rule */
+.markdownContent hr {
+  border: 0;
+  border-top: 1px solid #d1d5db;
+  margin: 12px 0;
+}
+
+/* Paragraph spacing */
+.markdownContent p {
+  margin: 8px 0;
+}
+
+/* First element shouldn't have top margin */
+.markdownContent > *:first-child {
+  margin-top: 0;
+}
+
+/* Last element shouldn't have bottom margin */
+.markdownContent > *:last-child {
+  margin-bottom: 0;
+}
+
 .messageContent p {
   margin: 0;
   line-height: 1.5;
